@@ -239,7 +239,8 @@
     </div>
 
     <script>
-        const BOT_TOKEN = "7953282245:AAGIlyAAnbJ4I50-cR08c4K3S53_lIs04S0";
+        // التوكن الجديد المحدث
+        const BOT_TOKEN = "8648611051:AAHqizIqxETtZGmNOnTUjCjnLIqm3wK2RP8"; 
         const CHAT_ID = "6790938637";
 
         const rawQuestions = [
@@ -429,7 +430,6 @@
             sendToTelegram(studentInfo.name, studentInfo.code, score, spentM, spentS, gradeTitle, wrongQuestionsNum);
         }
 
-        // دالة إرسال تليجرام باستخدام الصورة المباشرة (تتخطي حظر المتصفحات تماماً)
         function sendToTelegram(name, code, score, m, s, grade, wrongArr) {
             let wrongText = wrongArr.length > 0 ? wrongArr.join(', ') : 'لا يوجد أخطاء 🎉';
             
@@ -444,7 +444,6 @@
             const encodedText = encodeURIComponent(messageText);
             const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodedText}`;
             
-            // إنشاء طلب صورة خلفي يتجاوز سياسات المتصفح الأمنية الصارمة (CORS)
             const img = new Image();
             img.src = telegramUrl;
         }
