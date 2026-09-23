@@ -239,14 +239,14 @@
     </div>
 
     <script>
-        // التوكن الجديد المحدث
-        const BOT_TOKEN = "8648611051:AAHqizIqxETtZGmNOnTUjCjnLIqm3wK2RP8"; 
-        const CHAT_ID = "6790938637";
+        // التوكن والآيدي الجديد للحساب الثاني
+        const BOT_TOKEN = "8748316824:AAE4JGEh7A64YerEvBo6qOpGQmtJ_QWuGvU"; 
+        const CHAT_ID = "1378005849";
 
         const rawQuestions = [
             { id: 1, type: "mcq", text: "تؤثر قوة مقدارها 5.0N عمودياً عند طرف قضيب طوله 0.4m. احسب مقدار عزم القوة حول الطرف الآخر:", svg: `<line x1="40" y1="60" x2="220" y2="60" stroke="#38bdf8" stroke-width="6"/><circle cx="40" cy="60" r="6" fill="#ef4444"/><path d="M 220 60 L 220 20" stroke="#f59e0b" stroke-width="3"/><text x="110" y="85" fill="#94a3b8" font-size="13" text-anchor="middle">L = 0.4m</text><text x="220" y="15" fill="#f59e0b" font-size="12" text-anchor="middle">F = 5.0N</text>`, options: ["2.0 N·m", "1.2 N·m", "12.5 N·m", "0.8 N·m"], correct: 0 },
             { id: 2, type: "mcq", text: "في السؤال السابق، إذا كانت القوة تسبب دوراناً عكس عقارب الساعة، تكون إشارة العزم:", svg: `<circle cx="150" cy="60" r="30" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5"/><text x="150" y="66" fill="#4ade80" font-size="20" font-weight="bold" text-anchor="middle">(+)</text>`, options: ["موجبة (+)", "سالبة (-)", "منعدمة", "مترددة"], correct: 0 },
-            { id: 3, type: "mcq", text: "تؤثر قوة F = 4N على قضيب بزاوية θ = 60° وعلى بعد L = 4.0m من النقطة A. احسب عزم القوة (sin 60° ≈ 0.866):", svg: `<line x1="50" y1="80" x2="210" y2="40" stroke="#38bdf8" stroke-width="6"/><circle cx="50" cy="80" r="6" fill="#ef4444"/><line x1="210" y1="40" x2="260" y2="20" stroke="#f59e0b" stroke-width="3"/><text x="215" y="55" fill="#e2e8f0" font-size="12">60°</text>`, options: ["13.86 N·m", "16.0 N·m", "8.0 N·m", "10.2 N·m"], correct: 0 },
+            { id: 3, type: "mcq", text: "تؤثر قوة F = 4N على قضيب بزاوية θ = 60° وعلى بعد L = 4.0m من النقطة A. احسب عزم القوة (sin 60° ≈ 0.866):", svg: `<line x1="50" y1="80" x2="210" y2="40" stroke="#38bdf8" stroke-width="6"/><circle cx="50" y1="80" r="6" fill="#ef4444"/><line x1="210" y1="40" x2="260" y2="20" stroke="#f59e0b" stroke-width="3"/><text x="215" y="55" fill="#e2e8f0" font-size="12">60°</text>`, options: ["13.86 N·m", "16.0 N·m", "8.0 N·m", "10.2 N·m"], correct: 0 },
             { id: 4, type: "mcq", text: "إذا أثرت قوة 4N عند B على بعد L = 3.0m بزاوية 60° وكان الدوران مع عقارب الساعة، يكون العزم:", svg: `<line x1="50" y1="40" x2="190" y2="80" stroke="#38bdf8" stroke-width="6"/><circle cx="50" y1="40" r="6" fill="#ef4444"/><line x1="190" y1="80" x2="230" y2="100" stroke="#f59e0b" stroke-width="3"/><text x="190" y="70" fill="#e2e8f0" font-size="12">60°</text>`, options: ["-10.39 N·m", "+10.39 N·m", "-12.0 N·m", "-6.0 N·m"], correct: 0 },
             { id: 5, type: "mcq", text: "تأثير القوة في زيادة عزم الدوران يكون أكبر بزيادة:", svg: `<text x="150" y="65" fill="#38bdf8" font-size="15" text-anchor="middle">d = L · sin(θ)</text>`, options: ["طول ذراع القوة", "الكتلة فقط", "الزاوية عندما تكون صفر", "محور الدوران"], correct: 0 },
             { id: 6, type: "mcq", text: "ينعدم عزم القوة تماماً عندما تكون الزاوية بين خط عمل القوة والساق تساوي:", svg: `<line x1="40" y1="60" x2="200" y2="60" stroke="#38bdf8" stroke-width="6"/><line x1="200" y1="60" x2="260" y2="60" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4"/><text x="230" y="45" fill="#f59e0b" font-size="12">θ = 0° / 180°</text>`, options: ["0° أو 180°", "90°", "45°", "60°"], correct: 0 },
