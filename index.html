@@ -112,7 +112,6 @@
         #result-section { display: none; text-align: center; }
         .result-title { font-size: 1.25rem; color: #38bdf8; margin-bottom: 8px; font-weight: bold; }
         
-        /* تصميم شهادة التقدير الجاهزة للطباعة */
         .certificate-card {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border: 3px double #fbbf24;
@@ -129,7 +128,6 @@
         .cert-body { font-size: 0.95rem; line-height: 1.8; color: #f1f5f9; }
         .cert-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 10px; border-top: 1px solid #334155; font-size: 0.8rem; color: #94a3b8; }
 
-        /* قسم عرض الأخطاء */
         .review-box { text-align: right; margin-top: 20px; background: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05); }
         .review-title { color: #f43f5e; font-weight: bold; margin-bottom: 10px; font-size: 1rem; border-bottom: 1px solid #334155; padding-bottom: 5px; }
         .review-item { background: rgba(30, 41, 59, 0.5); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-right: 3px solid #f43f5e; font-size: 0.85rem; }
@@ -209,7 +207,6 @@
         <div id="result-section">
             <div class="result-title">🎯 اكتمل الاختبار بنجاح</div>
 
-            <!-- بطاقة شهادة التقدير الفخمة الجاهزة للطباعة -->
             <div class="certificate-card" id="cert-card">
                 <div class="cert-header">🎓 شهادة تقدير وتميز 🎓</div>
                 <div class="cert-sub">في مادة الفيزياء - بكالوريا 2027</div>
@@ -228,7 +225,6 @@
 
             <button class="btn btn-start" style="width:100%; margin-bottom:10px;" onclick="window.print()">طباعة / حفظ الشهادة 🖨️</button>
 
-            <!-- قسم مراجعة الأخطاء للطالب -->
             <div class="review-box" id="review-container">
                 <div class="review-title">❌ مراجعة الأسئلة الخاطئة والأجوبة الصحيحة:</div>
                 <div id="review-list"></div>
@@ -296,7 +292,6 @@
         let timerInterval = null;
         let studentInfo = { name: '', code: '' };
 
-        // دالة تبديل ترتيب الأسئلة عشوائياً (Shuffle)
         function shuffleArray(arr) {
             return arr.map(item => ({ ...item })).sort(() => Math.random() - 0.5);
         }
@@ -306,7 +301,6 @@
             studentInfo.name = document.getElementById('student-name').value.trim();
             studentInfo.code = document.getElementById('student-code').value.trim();
 
-            // ترتيب الأسئلة عشوائياً لكل طالب
             questionsData = shuffleArray(rawQuestions);
             userAnswers = new Array(questionsData.length).fill(null);
 
@@ -417,13 +411,11 @@
             const spentS = timeSpentSec % 60;
             const gradeTitle = calculateGrade(score);
 
-            // تعبئة الشهادة
             document.getElementById('cert-student-name').innerText = studentInfo.name;
             document.getElementById('cert-score').innerText = score;
             document.getElementById('cert-grade').innerText = gradeTitle;
             document.getElementById('cert-date').innerText = new Date().toLocaleDateString('ar-EG');
 
-            // تعبئة قسم مراجعة الأخطاء
             const revBox = document.getElementById('review-list');
             if (wrongQuestionsNum.length === 0) {
                 revBox.innerHTML = `<div style="color:#4ade80; text-align:center;">🎉 ممتاز! لا يوجد أخطاء لديك.</div>`;
@@ -434,28 +426,37 @@
             document.getElementById('exam-section').style.display = 'none';
             document.getElementById('result-section').style.display = 'block';
 
-            // إرسال التقرير لتليجرام
             sendToTelegram(studentInfo.name, studentInfo.code, score, spentM, spentS, gradeTitle, wrongQuestionsNum);
         }
 
+        // دالة إرسال تليجرام المضمونة بأحدث تقنية تجنب الحظر (HTML Form Direct Body)
         function sendToTelegram(name, code, score, m, s, grade, wrongArr) {
-            let wrongText = wrongArr.length > 0 ? wrongArr.join(', ') : 'لا يوجد إجابات خاطئة 🎉';
+            let wrongText = wrongArr.length > 0 ? wrongArr.join(', ') : 'لا يوجد أخطاء 🎉';
             
-            const message = `📊 نتيجة اختبار فيزياء جديدة\n\n` +
-                            `👤 اسم الطالب: ${name}\n` +
-                            `🆔 الكود: ${code}\n` +
-                            `🎯 الدرجة: ${score} / 40\n` +
-                            `🏅 التقدير: ${grade}\n` +
-                            `⏱️ الوقت: ${m} دقيقة و ${s} ثانية\n` +
-                            `❌ الأسئلة الخاطئة: ${wrongText}`;
+            const messageText = `📊 نتيجة اختبار فيزياء جديدة\n\n` +
+                                `👤 اسم الطالب: ${name}\n` +
+                                `🆔 الكود: ${code}\n` +
+                                `🎯 الدرجة: ${score} / 40\n` +
+                                `🏅 التقدير: ${grade}\n` +
+                                `⏱️ الوقت: ${m} دقيقة و ${s} ثانية\n` +
+                                `❌ الأسئلة الخاطئة: ${wrongText}`;
 
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            const formData = new FormData();
+            formData.append('chat_id', CHAT_ID);
+            formData.append('text', messageText);
 
-            // استخدام fetch المباشر بأفضل تقنية مضمونة
-            fetch(url, { method: 'GET', mode: 'no-cors' }).catch(err => {
-                const img = new Image();
-                img.src = url;
-            });
+            // استخدام sendBeacon أو fetch المباشر بدون أخطاء CORS
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon(url, formData);
+            } else {
+                fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                }).catch(e => console.log(e));
+            }
         }
     </script>
 </body>
