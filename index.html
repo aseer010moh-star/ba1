@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اختبار فيزياء 2 بكالوريا 2027 - عزم القوة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; user-select: none; }
         
         body { 
             background: #0f172a; 
@@ -43,7 +43,7 @@
 
         .container { 
             width: 100%; 
-            max-width: 580px; 
+            max-width: 600px; 
             background: rgba(30, 41, 59, 0.75); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -66,21 +66,20 @@
             font-weight: bold; 
             margin-bottom: 20px; 
             line-height: 1.5; 
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.15); 
         }
         
         #login-section { display: flex; flex-direction: column; gap: 14px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; text-align: right; }
         .form-group label { font-size: 0.9rem; color: #38bdf8; font-weight: 700; }
-        .form-control { background-color: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 12px 16px; color: #f8fafc; font-size: 0.95rem; outline: none; transition: 0.3s; }
-        .form-control:focus { border-color: #38bdf8; box-shadow: 0 0 12px rgba(56, 189, 248, 0.25); }
+        .form-control { background-color: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 12px 16px; color: #f8fafc; font-size: 0.95rem; outline: none; }
+        .form-control:focus { border-color: #38bdf8; }
         
-        .btn-start { background: linear-gradient(135deg, #38bdf8, #6366f1); color: white; padding: 14px; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3); }
-        .btn-start:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4); }
+        .btn-start { background: linear-gradient(135deg, #38bdf8, #6366f1); color: white; padding: 14px; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-start:hover { transform: translateY(-2px); }
 
         #exam-section { display: none; }
         .formula-guide-box { background-color: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 10px; margin-bottom: 15px; }
-        .formula-guide-title { color: #38bdf8; font-size: 0.85rem; font-weight: bold; margin-bottom: 6px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 4px; text-align: center; }
+        .formula-guide-title { color: #38bdf8; font-size: 0.85rem; font-weight: bold; margin-bottom: 6px; text-align: center; }
         .status-panel { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         
         .timer-badge { background: rgba(251, 191, 36, 0.1); color: #fbbf24; padding: 6px 14px; border-radius: 10px; font-size: 0.95rem; font-weight: bold; font-family: monospace; border: 1px solid rgba(251, 191, 36, 0.2); }
@@ -88,34 +87,11 @@
 
         .question-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-bottom: 15px; background-color: rgba(15, 23, 42, 0.5); padding: 8px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); max-height: 110px; overflow-y: auto; }
         .grid-btn { background-color: rgba(30, 41, 59, 0.6); color: #94a3b8; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 5px 0; font-size: 0.78rem; cursor: pointer; text-align: center; }
-        .grid-btn.active { background-color: #38bdf8; color: #0f172a; font-weight: bold; border-color: #38bdf8; }
+        .grid-btn.active { background-color: #38bdf8; color: #0f172a; font-weight: bold; }
         .grid-btn.answered { border-color: #4ade80; color: #4ade80; }
 
-        .question-card { 
-            background-color: rgba(15, 23, 42, 0.6); 
-            border-radius: 16px; 
-            padding: 18px; 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            margin-bottom: 15px; 
-            position: relative; 
-            overflow: hidden;
-        }
-        
-        .question-card-watermark {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.05;
-            transform: rotate(-15deg) scale(1.1);
-        }
-        .wm-text { font-size: 1.6rem; font-weight: 900; color: #38bdf8; white-space: nowrap; }
-
-        .question-content { position: relative; z-index: 2; text-align: right; }
+        .question-card { background-color: rgba(15, 23, 42, 0.6); border-radius: 16px; padding: 18px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 15px; position: relative; }
+        .question-content { text-align: right; }
         .question-header { display: flex; justify-content: space-between; color: #38bdf8; font-size: 0.85rem; margin-bottom: 10px; font-weight: 600; }
         .question-text { font-size: 0.95rem; line-height: 1.6; color: #f1f5f9; margin-bottom: 12px; font-weight: 500; }
         .question-image-container { width: 100%; min-height: 100px; background-color: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 8px; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; }
@@ -125,49 +101,46 @@
         .option-item { background-color: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: #e2e8f0; font-size: 0.9rem; transition: 0.2s; }
         .option-item:hover { border-color: #38bdf8; background: rgba(56, 189, 248, 0.05); }
         .option-item.selected { border-color: #38bdf8; background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.2)); color: white; font-weight: bold; }
-        .radio-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #64748b; }
-        .option-item.selected .radio-dot { border-color: white; background-color: #38bdf8; }
 
         .action-buttons { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 8px; margin-top: 12px; }
-        .btn { padding: 12px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 0.88rem; text-align: center; transition: 0.2s; }
+        .btn { padding: 12px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 0.88rem; text-align: center; }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-prev, .btn-next { background-color: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
         .btn-submit { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
 
-        #result-section { display: none; text-align: center; padding: 10px; }
+        /* شاشة النتيجة */
+        #result-section { display: none; text-align: center; }
         .result-title { font-size: 1.25rem; color: #38bdf8; margin-bottom: 8px; font-weight: bold; }
         
-        .circle-score {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: conic-gradient(#38bdf8 var(--percent, 0%), #334155 0);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 20px auto;
-            font-size: 28px;
-            font-weight: 800;
+        /* تصميم شهادة التقدير الجاهزة للطباعة */
+        .certificate-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 3px double #fbbf24;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
         }
+        .cert-header { font-family: 'Reem Kufi', sans-serif; color: #fbbf24; font-size: 1.5rem; margin-bottom: 5px; }
+        .cert-sub { color: #cbd5e1; font-size: 0.85rem; margin-bottom: 15px; }
+        .cert-name { font-size: 1.4rem; color: #38bdf8; font-weight: bold; margin: 10px 0; border-bottom: 1px dashed #334155; padding-bottom: 5px; }
+        .cert-body { font-size: 0.95rem; line-height: 1.8; color: #f1f5f9; }
+        .cert-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 10px; border-top: 1px solid #334155; font-size: 0.8rem; color: #94a3b8; }
 
-        .circle-score::before {
-            content: "";
-            position: absolute;
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            background: #1e293b;
+        /* قسم عرض الأخطاء */
+        .review-box { text-align: right; margin-top: 20px; background: rgba(15, 23, 42, 0.6); padding: 15px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .review-title { color: #f43f5e; font-weight: bold; margin-bottom: 10px; font-size: 1rem; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+        .review-item { background: rgba(30, 41, 59, 0.5); padding: 10px; border-radius: 8px; margin-bottom: 8px; border-right: 3px solid #f43f5e; font-size: 0.85rem; }
+        .correct-ans { color: #4ade80; font-weight: bold; }
+        .user-ans { color: #f43f5e; font-weight: bold; }
+
+        @media print {
+            body * { visibility: hidden; }
+            .certificate-card, .certificate-card * { visibility: visible; }
+            .certificate-card { position: absolute; left: 0; top: 0; width: 100%; border: 2px solid #000; }
         }
-
-        .circle-score div, .circle-score span { position: relative; z-index: 1; }
-        .circle-score span { font-size: 11px; color: #94a3b8; font-weight: 500; }
-
-        .result-info { background-color: rgba(15, 23, 42, 0.6); border-radius: 14px; padding: 16px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.05); text-align: right; font-size: 0.9rem; line-height: 2.2; }
-        
-        .footer-greeting { margin-top: 15px; text-align: center; font-size: 0.82rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; }
-        .teacher-name { color: #38bdf8; font-weight: bold; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -198,7 +171,7 @@
         <!-- 2. شاشة الأسئلة -->
         <div id="exam-section">
             <div class="formula-guide-box">
-                <div class="formula-guide-title">📐 القوانين الأساسية للحل:</div>
+                <div class="formula-guide-title">📐 القوانين الأساسية:</div>
                 <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">
                     M = F · d &nbsp;|&nbsp; d = L · sin(θ) &nbsp;|&nbsp; M = F · L · sin(θ) &nbsp;|&nbsp; F₁·d₁ = F₂·d₂
                 </div>
@@ -212,24 +185,15 @@
             <div class="question-grid" id="question-grid"></div>
 
             <div class="question-card">
-                <div class="question-card-watermark">
-                    <div class="wm-text">Mr / MohamadAmeen</div>
-                    <div class="wm-text">Mr / MohamadAmeen</div>
-                    <div class="wm-text">Mr / MohamadAmeen</div>
-                </div>
-
                 <div class="question-content">
                     <div class="question-header">
                         <span id="question-number-lbl">السؤال 1 من 40</span>
                         <span id="question-type-lbl">اختيار من متعدد</span>
                     </div>
-
                     <div class="question-text" id="question-text"></div>
-
                     <div class="question-image-container">
                         <svg id="question-svg" viewBox="0 0 300 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
                     </div>
-
                     <div class="options-list" id="options-container"></div>
                 </div>
             </div>
@@ -241,27 +205,40 @@
             </div>
         </div>
 
-        <!-- 3. شاشة النتيجة -->
+        <!-- 3. شاشة النتيجة وشهادة التقدير -->
         <div id="result-section">
-            <div class="result-title">🎯 تم إنهاء الاختبار بنجاح</div>
+            <div class="result-title">🎯 اكتمل الاختبار بنجاح</div>
 
-            <div class="circle-score" id="score-circle">
-                <div id="res-score">0</div>
-                <span>من 40</span>
+            <!-- بطاقة شهادة التقدير الفخمة الجاهزة للطباعة -->
+            <div class="certificate-card" id="cert-card">
+                <div class="cert-header">🎓 شهادة تقدير وتميز 🎓</div>
+                <div class="cert-sub">في مادة الفيزياء - بكالوريا 2027</div>
+                <div>يشهد أستاذ المادة بأن الطالب/ة:</div>
+                <div class="cert-name" id="cert-student-name">...</div>
+                <div class="cert-body">
+                    قد أتم اختباره بنجاح في درس <b>"عزم القوة (Torque)"</b><br>
+                    وحصل على درجة: <b id="cert-score" style="color:#fbbf24;">0</b> من 40<br>
+                    بتقدير عام: <b id="cert-grade" style="color:#38bdf8;">...</b>
+                </div>
+                <div class="cert-footer">
+                    <div>التاريخ: <span id="cert-date"></span></div>
+                    <div>مدرس المادة: <b>أ. محمد أمين نظير</b></div>
+                </div>
             </div>
 
-            <div class="result-info">
-                <div>👤 <b>اسم الطالب:</b> <span id="res-name"></span></div>
-                <div>🏅 <b>التقدير العام:</b> <span id="res-grade" style="color:#38bdf8; font-weight:bold;"></span></div>
-                <div>⏱️ <b>الوقت المستغرق:</b> <span id="res-time"></span></div>
-                <div>✅ <b>النتيجة النهائية:</b> <span id="res-correct"></span> من 40</div>
+            <button class="btn btn-start" style="width:100%; margin-bottom:10px;" onclick="window.print()">طباعة / حفظ الشهادة 🖨️</button>
+
+            <!-- قسم مراجعة الأخطاء للطالب -->
+            <div class="review-box" id="review-container">
+                <div class="review-title">❌ مراجعة الأسئلة الخاطئة والأجوبة الصحيحة:</div>
+                <div id="review-list"></div>
             </div>
 
-            <button class="btn btn-start" style="width:100%; margin-top:10px;" onclick="location.reload()">إعادة الاختبار 🔄</button>
+            <button class="btn" style="background-color:#334155; color:white; width:100%; margin-top:15px;" onclick="location.reload()">إعادة الاختبار 🔄</button>
         </div>
 
-        <div class="footer-greeting">
-            جميع الحقوق محفوظة للأستاذ <span class="teacher-name">محمد أمين نظير</span>
+        <div style="margin-top:15px; text-align:center; font-size:0.8rem; color:#64748b;">
+            جميع الحقوق محفوظة للأستاذ <b>محمد أمين نظير</b>
         </div>
     </div>
 
@@ -269,14 +246,7 @@
         const BOT_TOKEN = "7953282245:AAGIlyAAnbJ4I50-cR08c4K3S53_lIs04S0";
         const CHAT_ID = "6790938637";
 
-        // كشف التنقل بين التبويبات لمنع الغش
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden && document.getElementById('exam-section').style.display === 'block') {
-                alert("⚠️ تنبيه أمني: يمنع مغادرة صفحة الاختبار أو التنقل بين التبويبات!");
-            }
-        });
-
-        const questionsData = [
+        const rawQuestions = [
             { id: 1, type: "mcq", text: "تؤثر قوة مقدارها 5.0N عمودياً عند طرف قضيب طوله 0.4m. احسب مقدار عزم القوة حول الطرف الآخر:", svg: `<line x1="40" y1="60" x2="220" y2="60" stroke="#38bdf8" stroke-width="6"/><circle cx="40" cy="60" r="6" fill="#ef4444"/><path d="M 220 60 L 220 20" stroke="#f59e0b" stroke-width="3"/><text x="110" y="85" fill="#94a3b8" font-size="13" text-anchor="middle">L = 0.4m</text><text x="220" y="15" fill="#f59e0b" font-size="12" text-anchor="middle">F = 5.0N</text>`, options: ["2.0 N·m", "1.2 N·m", "12.5 N·m", "0.8 N·m"], correct: 0 },
             { id: 2, type: "mcq", text: "في السؤال السابق، إذا كانت القوة تسبب دوراناً عكس عقارب الساعة، تكون إشارة العزم:", svg: `<circle cx="150" cy="60" r="30" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5"/><text x="150" y="66" fill="#4ade80" font-size="20" font-weight="bold" text-anchor="middle">(+)</text>`, options: ["موجبة (+)", "سالبة (-)", "منعدمة", "مترددة"], correct: 0 },
             { id: 3, type: "mcq", text: "تؤثر قوة F = 4N على قضيب بزاوية θ = 60° وعلى بعد L = 4.0m من النقطة A. احسب عزم القوة (sin 60° ≈ 0.866):", svg: `<line x1="50" y1="80" x2="210" y2="40" stroke="#38bdf8" stroke-width="6"/><circle cx="50" cy="80" r="6" fill="#ef4444"/><line x1="210" y1="40" x2="260" y2="20" stroke="#f59e0b" stroke-width="3"/><text x="215" y="55" fill="#e2e8f0" font-size="12">60°</text>`, options: ["13.86 N·m", "16.0 N·m", "8.0 N·m", "10.2 N·m"], correct: 0 },
@@ -287,7 +257,7 @@
             { id: 8, type: "mcq", text: "ساق متزنة أفقياً تؤثر عليها F1 = 50N على بعد d1 = 0.6m. احسب القوة F2 المؤثرة على بعد d2 = 1.5m للاتزان:", svg: `<polygon points="150,75 140,95 160,95" fill="#ef4444"/><line x1="30" y1="75" x2="270" y2="75" stroke="#38bdf8" stroke-width="6"/><line x1="50" y1="75" x2="50" y2="35" stroke="#f59e0b" stroke-width="3"/><line x1="250" y1="75" x2="250" y2="25" stroke="#4ade80" stroke-width="3"/>`, options: ["20 N", "30 N", "125 N", "15 N"], correct: 0 },
             { id: 9, type: "mcq", text: "لإحداث نفس عزم الدوران باستخدام قوة أقل، يجب استخدام مفتاح عزم بـ:", svg: `<rect x="50" y="55" width="180" height="12" rx="6" fill="#64748b"/><circle cx="50" cy="61" r="16" fill="#0284c7"/>`, options: ["ذراع أطول", "ذراع أقصر", "التأثير عند نقطة الارتكاز", "التأثير بزاوية حادة جداً"], correct: 0 },
             { id: 10, type: "mcq", text: "ذراع طولها 0.2m تؤثر عليها قوة 3.0N عمودياً لأعلى عند الطرف الأيمن. عزم القوة حول الطرف الأيسر هو:", svg: `<line x1="50" y1="70" x2="210" y2="70" stroke="#38bdf8" stroke-width="6"/><circle cx="50" cy="70" r="5" fill="#ef4444"/><line x1="210" y1="70" x2="210" y2="20" stroke="#f59e0b" stroke-width="3"/>`, options: ["0.6 N·m عكس عقارب الساعة", "0.6 N·m مع عقارب الساعة", "15 N·m عكس عقارب الساعة", "0.06 N·m مع عقارب الساعة"], correct: 0 },
-            { id: 11, type: "mcq", text: "قضيب طوله 0.3m، تؤثر عند طرفه العلوي قوة 4.0N بمحاذاة امتداد القضيب نفسه. العزم حول مركز الدوران يساوي:", svg: `<line x1="60" y1="90" x2="180" y2="40" stroke="#38bdf8" stroke-width="6"/><circle cx="60" cy="90" r="5" fill="#ef4444"/><line x1="180" y1="40" x2="230" y2="20" stroke="#f59e0b" stroke-width="3" stroke-dasharray="3"/>`, options: ["0 N·m", "1.2 N·m", "0.85 N·m", "2.4 N·m"], correct: 0 },
+            { id: 11, type: "mcq", text: "قضيب طوله 0.3m، تؤثر عند طرفه العلوي قوة 4.0N بمحاذاة امتداد القضيب نفسه. العزم حول مركز الدوران يساوي:", svg: `<line x1="60" y1="90" x2="180" y2="40" stroke="#38bdf8" stroke-width="6"/><circle cx="60" y1="90" r="5" fill="#ef4444"/><line x1="180" y1="40" x2="230" y2="20" stroke="#f59e0b" stroke-width="3" stroke-dasharray="3"/>`, options: ["0 N·m", "1.2 N·m", "0.85 N·m", "2.4 N·m"], correct: 0 },
             { id: 12, type: "mcq", text: "قضيب مائل تؤثر عليه قوة 2.0N على بعد 0.4m بزاوية 30° مع القضيب. احسب ذراع العزم d:", svg: `<line x1="70" y1="35" x2="190" y2="85" stroke="#38bdf8" stroke-width="6"/><line x1="190" y1="85" x2="120" y2="85" stroke="#f59e0b" stroke-width="3"/>`, options: ["0.20 m", "0.40 m", "0.35 m", "0.10 m"], correct: 0 },
             { id: 13, type: "mcq", text: "قوة مقدارها 6.0N تؤثر عند طرف رافعة طولها 0.5m بزاوية 30° مع الرافعة. مقدار عزم القوة يساوي:", svg: `<line x1="50" y1="75" x2="200" y2="75" stroke="#38bdf8" stroke-width="6"/><line x1="200" y1="75" x2="250" y2="35" stroke="#f59e0b" stroke-width="3"/>`, options: ["1.5 N·m", "3.0 N·m", "2.6 N·m", "0.75 N·m"], correct: 0 },
             { id: 14, type: "mcq", text: "ساق حديدية طولها 1.50m تؤثر عليها قوة 30N بزاوية 30°. ذراع العزم (d) يساوي:", svg: `<line x1="40" y1="60" x2="220" y2="60" stroke="#38bdf8" stroke-width="6"/>`, options: ["0.75 m", "1.50 m", "1.30 m", "0.50 m"], correct: 0 },
@@ -319,16 +289,26 @@
             { id: 40, type: "tf", text: "عزم القوة العمودية على ساق طولها 0.2m بواسطة قوة 80N يساوي 16 N·m.", svg: `<text x="150" y="65" fill="#38bdf8" font-size="15" text-anchor="middle">80 × 0.2 = 16 N·m</text>`, options: ["صح", "خطأ"], correct: 0 }
         ];
 
+        let questionsData = [];
         let currentIdx = 0;
-        let userAnswers = new Array(40).fill(null);
+        let userAnswers = [];
         let timerSeconds = 45 * 60;
         let timerInterval = null;
         let studentInfo = { name: '', code: '' };
+
+        // دالة تبديل ترتيب الأسئلة عشوائياً (Shuffle)
+        function shuffleArray(arr) {
+            return arr.map(item => ({ ...item })).sort(() => Math.random() - 0.5);
+        }
 
         function startExam(e) {
             e.preventDefault();
             studentInfo.name = document.getElementById('student-name').value.trim();
             studentInfo.code = document.getElementById('student-code').value.trim();
+
+            // ترتيب الأسئلة عشوائياً لكل طالب
+            questionsData = shuffleArray(rawQuestions);
+            userAnswers = new Array(questionsData.length).fill(null);
 
             document.getElementById('display-student-name').innerText = studentInfo.name;
             document.getElementById('login-section').style.display = 'none';
@@ -356,7 +336,7 @@
         function renderGrid() {
             const grid = document.getElementById('question-grid');
             grid.innerHTML = '';
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < questionsData.length; i++) {
                 const btn = document.createElement('div');
                 btn.className = `grid-btn ${i === currentIdx ? 'active' : ''} ${userAnswers[i] !== null ? 'answered' : ''}`;
                 btn.innerText = i + 1;
@@ -369,7 +349,7 @@
             currentIdx = index;
             const q = questionsData[index];
 
-            document.getElementById('question-number-lbl').innerText = `السؤال ${index + 1} من 40`;
+            document.getElementById('question-number-lbl').innerText = `السؤال ${index + 1} من ${questionsData.length}`;
             document.getElementById('question-type-lbl').innerText = q.type === 'mcq' ? 'اختيار من متعدد' : 'صح أم خطأ';
             document.getElementById('question-text').innerText = q.text;
             document.getElementById('question-svg').innerHTML = q.svg;
@@ -382,12 +362,12 @@
                 const item = document.createElement('div');
                 item.className = `option-item ${isSelected ? 'selected' : ''}`;
                 item.onclick = () => selectOption(optIdx);
-                item.innerHTML = `<span>${optText}</span><div class="radio-dot"></div>`;
+                item.innerHTML = `<span>${optText}</span>`;
                 optsBox.appendChild(item);
             });
 
             document.getElementById('btn-prev').disabled = index === 0;
-            document.getElementById('btn-next').disabled = index === 39;
+            document.getElementById('btn-next').disabled = index === questionsData.length - 1;
             renderGrid();
         }
 
@@ -397,7 +377,7 @@
         }
 
         function prevQuestion() { if (currentIdx > 0) loadQuestion(currentIdx - 1); }
-        function nextQuestion() { if (currentIdx < 39) loadQuestion(currentIdx + 1); }
+        function nextQuestion() { if (currentIdx < questionsData.length - 1) loadQuestion(currentIdx + 1); }
 
         function calculateGrade(score) {
             const percentage = (score / 40) * 100;
@@ -412,13 +392,23 @@
             clearInterval(timerInterval);
 
             let score = 0;
-            let wrongQuestions = [];
+            let wrongListHTML = "";
+            let wrongQuestionsNum = [];
 
-            userAnswers.forEach((ans, idx) => {
-                if (ans === questionsData[idx].correct) {
+            questionsData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                if (userAns === q.correct) {
                     score++;
                 } else {
-                    wrongQuestions.push(idx + 1);
+                    wrongQuestionsNum.push(idx + 1);
+                    const userText = userAns !== null ? q.options[userAns] : "لم يُجب";
+                    const correctText = q.options[q.correct];
+                    wrongListHTML += `
+                        <div class="review-item">
+                            <div><b>س${idx + 1}:</b> ${q.text}</div>
+                            <div>إجابتك: <span class="user-ans">${userText}</span></div>
+                            <div>الإجابة الصحيحة: <span class="correct-ans">${correctText}</span></div>
+                        </div>`;
                 }
             });
 
@@ -427,19 +417,25 @@
             const spentS = timeSpentSec % 60;
             const gradeTitle = calculateGrade(score);
 
-            document.getElementById('res-score').innerText = score;
-            document.getElementById('res-name').innerText = studentInfo.name;
-            document.getElementById('res-grade').innerText = gradeTitle;
-            document.getElementById('res-time').innerText = `${spentM} دقيقة و ${spentS} ثانية`;
-            document.getElementById('res-correct').innerText = `${score} من 40`;
+            // تعبئة الشهادة
+            document.getElementById('cert-student-name').innerText = studentInfo.name;
+            document.getElementById('cert-score').innerText = score;
+            document.getElementById('cert-grade').innerText = gradeTitle;
+            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('ar-EG');
 
-            const percent = (score / 40) * 100;
-            document.getElementById('score-circle').style.setProperty('--percent', `${percent}%`);
+            // تعبئة قسم مراجعة الأخطاء
+            const revBox = document.getElementById('review-list');
+            if (wrongQuestionsNum.length === 0) {
+                revBox.innerHTML = `<div style="color:#4ade80; text-align:center;">🎉 ممتاز! لا يوجد أخطاء لديك.</div>`;
+            } else {
+                revBox.innerHTML = wrongListHTML;
+            }
 
             document.getElementById('exam-section').style.display = 'none';
             document.getElementById('result-section').style.display = 'block';
 
-            sendToTelegram(studentInfo.name, studentInfo.code, score, spentM, spentS, gradeTitle, wrongQuestions);
+            // إرسال التقرير لتليجرام
+            sendToTelegram(studentInfo.name, studentInfo.code, score, spentM, spentS, gradeTitle, wrongQuestionsNum);
         }
 
         function sendToTelegram(name, code, score, m, s, grade, wrongArr) {
@@ -455,9 +451,11 @@
 
             const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
 
-            // طلب HTTP مباشر يضمن وصول الرسالة فوراً للبوت بدون CORS أو حظر
-            const img = new Image();
-            img.src = url;
+            // استخدام fetch المباشر بأفضل تقنية مضمونة
+            fetch(url, { method: 'GET', mode: 'no-cors' }).catch(err => {
+                const img = new Image();
+                img.src = url;
+            });
         }
     </script>
 </body>
